@@ -4,6 +4,10 @@
 
 ## Install
 
+To output images of the code, you'll need the Silicon CLI. Follow instructions for install in their README.md
+
+<https://github.com/Aloxaf/silicon>
+
 Installation with Packer is super simple:
 
 ```lua

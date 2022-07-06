@@ -1,44 +1,31 @@
-# A Neovim Plugin Template
+# Code Share
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ellisonleao/nvim-plugin-template/default?style=for-the-badge)
-![Lua](https://img.shields.io/badge/Made%20with%20Lua-blueviolet.svg?style=for-the-badge&logo=lua)
+> A library for sharing code images and text
 
-A template repository for Neovim plugins.
+## Install
 
-## Using it
+Installation with Packer is super simple:
 
-Via `gh`:
+```lua
+use {
+  "C-Sinclair/code_share",
+  config = function()
+    require"code_share".setup {
+      -- all keys are optional
 
+      -- url to upload image to
+      upload_url = "https://share.foo.bar"
+    }
+  end
+}
 ```
-$ gh repo create my-plugin -p ellisonleao/nvim-plugin-template
-```
 
-Via github web page:
+## Usage
 
-Click on `Use this template`
+```lua
+local code = require "code_share"
 
-![](https://docs.github.com/assets/cb-36544/images/help/repository/use-this-template-button.png)
-
-## Features and structure
-
-- 100% Lua
-- Github actions to run tests and check for formatting errors (Stylua)
-- Tests created with [busted](https://olivinelabs.com/busted/) + [plenary.nvim](https://github.com/nvim-lua/plenary.nvim)
-
-### Plugin structure
-
-```
-.
-├── lua
-│   ├── plugin_name
-│   │   └── module.lua
-│   └── plugin_name.lua
-├── Makefile
-├── plugin
-│   └── plugin_name.lua
-├── README.md
-├── tests
-│   ├── minimal_init.lua
-│   └── plugin_name
-│       └── plugin_name_spec.lua
+-- share the current visual block
+code.share()
+-- The link to the publicly accessible share is copied to system clipboard
 ```

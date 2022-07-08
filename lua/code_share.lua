@@ -3,7 +3,7 @@ local module = require("code_share.module")
 
 local M = {}
 
-M.config = {
+vim.g.code_share_config = {
 	upload_url = "https://code.sinclair.software/upload",
 	line_numbers = true,
 	round_corners = true,
@@ -34,7 +34,27 @@ M.config = {
 --                        run `silicon --list-themes` to see available themes
 --]]
 M.setup = function(config)
-	M.config = vim.tbl_deep_extend("keep", config, M.config)
+	M.config = vim.tbl_deep_extend("keep", config, vim.g.code_share_config)
+
+	vim.api.nvim_create_user_command("CodeShare", function(opts)
+		local bfnr = vim.api.nvim_get_current_buf()
+
+		local line_nr_start = vim.fn.line("'<")
+		local line_nr_end = vim.fn.line("'>")
+
+		local lines = vim.api.nvim_buf_get_lines(bfnr, line_nr_start - 1, line_nr_end, false)
+		local code = table.concat(lines, "\n")
+		if code == "" then
+			vim.api.nvim_err_writeln("No code found")
+			return
+		end
+		-- use the user defined name, otherwise hash the code for the name
+		local name = opts.args or module.hash(code)
+		module.upload(name, code)
+	end, {
+		nargs = 1,
+		range = true,
+	})
 end
 
 --[[

@@ -33,3 +33,9 @@ local code = require "code_share"
 code.share()
 -- The link to the publicly accessible share is copied to system clipboard
 ```
+
+The plugin also ships with a vim user command ready for use
+
+```vim
+:'<,'>CodeShare [name]
+```
